@@ -1,0 +1,1 @@
+/Applications/Postgres.app/Contents/Versions/15/bin/postgres "-D" "/Users/hadiqasumbalarshad/Documents/chat-application/backend/database" "-p" "5432"

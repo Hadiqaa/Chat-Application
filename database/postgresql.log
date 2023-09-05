@@ -1,0 +1,60 @@
+2023-09-01 01:58:17.663 PKT [35357] LOG:  starting PostgreSQL 15.4 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-09-01 01:58:17.666 PKT [35357] LOG:  listening on IPv6 address "::1", port 5432
+2023-09-01 01:58:17.666 PKT [35357] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-09-01 01:58:17.667 PKT [35357] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-09-01 01:58:17.673 PKT [35360] LOG:  database system was shut down at 2023-09-01 01:58:17 PKT
+2023-09-01 01:58:17.678 PKT [35357] LOG:  database system is ready to accept connections
+2023-09-01 02:00:48.532 PKT [35357] LOG:  received fast shutdown request
+2023-09-01 02:00:48.534 PKT [35357] LOG:  aborting any active transactions
+2023-09-01 02:00:48.536 PKT [35357] LOG:  background worker "logical replication launcher" (PID 35363) exited with exit code 1
+2023-09-01 02:00:48.536 PKT [35358] LOG:  shutting down
+2023-09-01 02:00:48.537 PKT [35358] LOG:  checkpoint starting: shutdown immediate
+2023-09-01 02:00:48.598 PKT [35358] LOG:  checkpoint complete: wrote 976 buffers (6.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.035 s, sync=0.025 s, total=0.062 s; sync files=316, longest=0.001 s, average=0.001 s; distance=4568 kB, estimate=4568 kB
+2023-09-01 02:00:48.606 PKT [35357] LOG:  database system is shut down
+2023-09-01 02:02:50.119 PKT [35579] LOG:  starting PostgreSQL 15.4 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-09-01 02:02:50.122 PKT [35579] LOG:  listening on IPv6 address "::1", port 5432
+2023-09-01 02:02:50.122 PKT [35579] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-09-01 02:02:50.123 PKT [35579] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-09-01 02:02:50.129 PKT [35582] LOG:  database system was shut down at 2023-09-01 02:00:48 PKT
+2023-09-01 02:02:50.136 PKT [35579] LOG:  database system is ready to accept connections
+2023-09-01 03:39:09.434 PKT [3417] LOG:  starting PostgreSQL 15.4 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-09-01 03:39:09.436 PKT [3417] LOG:  listening on IPv6 address "::1", port 5432
+2023-09-01 03:39:09.436 PKT [3417] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-09-01 03:39:09.437 PKT [3417] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-09-01 03:39:09.444 PKT [3420] LOG:  database system was interrupted; last known up at 2023-09-01 02:02:50 PKT
+2023-09-01 03:39:09.509 PKT [3420] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-09-01 03:39:09.511 PKT [3420] LOG:  invalid record length at 0/1BD5708: wanted 24, got 0
+2023-09-01 03:39:09.512 PKT [3420] LOG:  redo is not required
+2023-09-01 03:39:09.515 PKT [3418] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-09-01 03:39:09.517 PKT [3418] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB
+2023-09-01 03:39:09.520 PKT [3417] LOG:  database system is ready to accept connections
+2023-09-04 15:48:01.965 PKT [9956] LOG:  starting PostgreSQL 15.4 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-09-04 15:48:01.969 PKT [9956] LOG:  listening on IPv6 address "::1", port 5432
+2023-09-04 15:48:01.969 PKT [9956] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-09-04 15:48:01.969 PKT [9956] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-09-04 15:48:01.977 PKT [9959] LOG:  database system was interrupted; last known up at 2023-09-01 03:39:09 PKT
+2023-09-04 15:48:02.064 PKT [9959] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-09-04 15:48:02.068 PKT [9959] LOG:  redo starts at 0/1BD5780
+2023-09-04 15:48:02.068 PKT [9959] LOG:  invalid record length at 0/1BD57B8: wanted 24, got 0
+2023-09-04 15:48:02.068 PKT [9959] LOG:  redo done at 0/1BD5780 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-09-04 15:48:02.071 PKT [9957] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-09-04 15:48:02.074 PKT [9957] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.003 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB
+2023-09-04 15:48:02.077 PKT [9956] LOG:  database system is ready to accept connections
+2023-09-04 15:55:43.308 PKT [10265] FATAL:  role "ChatApplication" does not exist
+2023-09-04 15:58:02.045 PKT [9957] LOG:  checkpoint starting: time
+2023-09-04 15:58:02.153 PKT [9957] LOG:  checkpoint complete: wrote 1 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.108 s; sync files=1, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB
+2023-09-04 16:40:14.385 PKT [12043] ERROR:  relation "Users" does not exist at character 15
+2023-09-04 16:40:14.385 PKT [12043] STATEMENT:  SELECT * FROM "Users";
+2023-09-04 16:40:26.819 PKT [12043] ERROR:  syntax error at or near "User" at character 1
+2023-09-04 16:40:26.819 PKT [12043] STATEMENT:  User
+	SELECT * FROM "User";
+2023-09-04 16:43:02.031 PKT [9957] LOG:  checkpoint starting: time
+2023-09-04 16:43:02.135 PKT [9957] LOG:  checkpoint complete: wrote 1 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.001 s, total=0.105 s; sync files=1, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB
+2023-09-04 16:50:31.567 PKT [12828] FATAL:  role "root" does not exist
+2023-09-04 16:51:13.363 PKT [12899] FATAL:  database "database_development" does not exist
+2023-09-04 16:58:02.092 PKT [9957] LOG:  checkpoint starting: time
+2023-09-04 16:58:08.191 PKT [9957] LOG:  checkpoint complete: wrote 61 buffers (0.4%); 1 WAL file(s) added, 0 removed, 0 recycled; write=6.073 s, sync=0.007 s, total=6.099 s; sync files=52, longest=0.003 s, average=0.001 s; distance=244 kB, estimate=244 kB
+2023-09-04 17:03:02.078 PKT [9957] LOG:  checkpoint starting: time
+2023-09-04 17:03:02.388 PKT [9957] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.304 s, sync=0.003 s, total=0.311 s; sync files=3, longest=0.003 s, average=0.001 s; distance=13 kB, estimate=221 kB
+2023-09-04 17:33:02.326 PKT [9957] LOG:  checkpoint starting: time
+2023-09-04 17:33:06.912 PKT [9957] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.575 s, sync=0.007 s, total=4.587 s; sync files=49, longest=0.003 s, average=0.001 s; distance=191 kB, estimate=218 kB
