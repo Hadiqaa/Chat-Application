@@ -3,38 +3,36 @@ const sequelize = require('sequelize')
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const {Client} = require('pg')
-//setting up your port
-const PORT = process.env.PORT || 3000
+const router = require("./routes/user.route");
+// Setting up your port
+const PORT = process.env.PORT || 3000;
 
 const Connection = new Client({
-host : 'localhost',
-user:'hadiqasumbalarshad',
-password :'11223344',
-port:'5432'
+  host: 'localhost',
+  user: 'hadiqasumbalarshad',
+  password: '11223344',
+  port: '5432',
+  database: 'chatapp', // Replace with your actual database name
 });
 
 Connection.connect()
-.then(() => { 
-    console.log("Connected to database");
-    Connection.end();
+  .then(() => {
+    console.log('Connected to database');
+    
+    // Now, start your Express.js server
+    const app = express();
 
-})
-.catch((err) => {
-    console.log("OOps cant connect", err);
-}); 
+    // Middleware
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(cookieParser());
 
-const app = express()
+    // Define your routes
+    app.use(router);
 
-app.get("/", (req,res) => {
-    res.send("Hello just checking");
-});
-//middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
-
-//listening to server connection
-app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))
-
-
-
+    // Listening to server connection
+    app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));
+  })
+  .catch((err) => {
+    console.log('Oops, can\'t connect', err);
+  });
