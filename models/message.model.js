@@ -3,41 +3,30 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Messages extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      
-      Messages.belongsTo(models.Users, {
-        onDelete: "CASCADE",
-        foreignKey: 'sender_id',
-        targetKey: 'id',
-        as: 'user'
-      });
+  class Message extends Model {
+    
+  static associate(models) {
+    Message.belongsTo(models.User, {
+      foreignKey: 'sender_id',
+      as: 'user'
+    });
 
-      Messages.belongsTo(models.Groups, {
-        onDelete: "CASCADE",
-        foreignKey: 'group_id',
-        targetKey: 'id',
-        as: 'groups'
-      });
+    Message.hasMany(models.Attachments, {
+      foreignKey: 'message_id',
+      as:'attachments'
+    });
 
-      Messages.hasMany(models.Attachments, {
-        onDelete: "CASCADE",
-        foreignKey: 'message_id',
-        targetKey: 'id', 
-        as:'attachments'
-      });
+    Message.belongsTo(models.Groups, {
+      foreignKey: 'group_id',
+      as: 'groups'
+    });
     }
   }
-  Messages.init({
+  Message.init({
     text: DataTypes.STRING ,
 
     sender_id: {
-      type: DataTypes.INTEGER.UNSIGNED ,
+      type: DataTypes.INTEGER ,
       allowNull: false,
       references :{
         model:"user",
@@ -46,8 +35,14 @@ module.exports = (sequelize, DataTypes) => {
     },
 
 
+    reciever_id: {
+      type: DataTypes.INTEGER ,
+      allowNull: false
+    },
+
+
     group_id : {
-      type: DataTypes.INTEGER.UNSIGNED ,
+      type: DataTypes.INTEGER ,
       allowNull: false,
       references :{
         model:"groups",
@@ -58,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    modelName: 'Messages',
+    modelName: 'Message',
   });
-  return Messages;
+  return Message;
 };

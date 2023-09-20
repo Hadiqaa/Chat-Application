@@ -1,5 +1,8 @@
 const AuthService = require("../services/auth.service");
+const User = require('../models').User;
 
+
+console.log("in controllers now", User);
 const login = async (req, res) => {
   const { email, password } = req.body;
 

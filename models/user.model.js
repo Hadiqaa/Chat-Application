@@ -10,25 +10,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.hasMany(models.Messages, {
-        onDelete: "CASCADE",
+      User.hasMany(models.Message, {
         foreignKey: 'sender_id',
-        targetKey: 'id', 
-        as:'messages'
+        as: 'messages',
       });
 
       User.hasMany(models.Groups, {
-        onDelete: "CASCADE",
         foreignKey: 'creator_id',
-        targetKey: 'id', 
         as:'groups'
       });
 
       User.hasMany(models.Attachments, {
-        onDelete: "CASCADE",
         foreignKey: 'creator_id',
-        targetKey: 'id', 
         as:'attachments'
+      });
+
+      User.hasMany(models.Group_participants, {
+        foreignKey: 'user_id',
+        as:'group_participants'
       });
     }
   }

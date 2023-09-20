@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user.model.js");
-const asyncHandler = require("express-async-handler"); // Fix the typo here
+const User = require("../models").User;
+const asyncHandler = require("express-async-handler"); // Fixed the typo here
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -13,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select("password"); // Fix the typo, it should be findById, not findbyId
+      req.user = await User.findById(decoded.id).select("password"); // Fixed the typo, it should be findById, not findbyId
       next();
     } catch (error) {
       res.status(401);
@@ -23,7 +23,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("Not authorized, no token"); 
   }
 });
 

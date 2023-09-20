@@ -11,16 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Group_participants.belongsTo(models.Groups, {
-        onDelete: "CASCADE",
         foreignKey: 'group_id',
-        targetKey: 'id',
         as: 'groups'
       });
 
       Group_participants.belongsTo(models.User, {
-        onDelete: "CASCADE",
         foreignKey: 'user_id',
-        targetKey: 'id',
         as: 'user'
       });
 
@@ -28,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Group_participants.init({
     group_id : {
-      type: DataTypes.INTEGER.UNSIGNED ,
+      type: DataTypes.INTEGER ,
       allowNull: false,
       references :{
         model:"groups",
@@ -37,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     user_id : {
-      type: DataTypes.INTEGER.UNSIGNED ,
+      type: DataTypes.INTEGER ,
       allowNull: false,
       references :{
         model:"user",

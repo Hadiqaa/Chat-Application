@@ -10,17 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Groups.hasMany(models.Messages, {
-        onDelete: "CASCADE",
+      Groups.hasMany(models.Message, {
         foreignKey: 'group_id',
-        targetKey: 'id', 
-        as:'messages'
+        as: 'messages',
       });
 
       Groups.belongsTo(models.User, {
-        onDelete: "CASCADE",
         foreignKey: 'creator_id',
-        targetKey: 'id',
         as: 'user'
       });
     }
@@ -30,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
   
     creator_id : {
-      type: DataTypes.INTEGER.UNSIGNED ,
+      type: DataTypes.INTEGER ,
       allowNull: false,
       references :{
         model:"user",

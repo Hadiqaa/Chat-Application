@@ -2,24 +2,24 @@
   "development": {
     "host": "localhost",
     "dialect": "postgres",
-  "user":"hadiqasumbalarshad",
- "password" :"11223344",
-   "port":"5432",
-   "migrationsPath": "./migrations"
+    "user":"hadiqasumbalarshad",
+    "password" :"11223344",
+    "port":"5432",
+    "migrationsPath": "./migrations"
 
   },
   "test": {
     "host": "localhost",
     "dialect": "postgres",
-  "user":"hadiqasumbalarshad",
- "password" :"11223344",
-   "port":"5432"
+    "user":"hadiqasumbalarshad",
+    "password" :"11223344",
+    "port":"5432"
   },
   "production": {
     "host": "localhost",
     "dialect": "postgres",
-  "user":"hadiqasumbalarshad",
- "password" :"11223344",
-   "port":"5432"
+    "user":"hadiqasumbalarshad",
+    "password" :"11223344",
+    "port":"5432"
   }
 }

@@ -1,12 +1,30 @@
-const User = require("../models/user.model");
+const User = require('../models/').User;
 const bcrypt = require("bcrypt");
 const generateToken = require("../config/generatetoken");
+console.log("xxx",User);
+
+const getUserByEmail = async (email) => {
+    try {
+        let user = await User.findOne({
+          where: {
+            email: email, // Use the retrieved email in the query
+          },
+          });
+          console.log("just checking", user);
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
+
 
 // Function to handle user login
 const loginUser = async (email, password) => {
   try {
     // Find the user by email
-    const user = await User.findOne({ email });
+    const user = await getUserByEmail(email);
 
     if (!user) {
       throw new Error("User does not exist");
@@ -34,9 +52,9 @@ const loginUser = async (email, password) => {
 const registerUser = async (userName, fullName, email, password) => {
     try {
       // Check if the user already exists with the provided email
-      const userExists = await User.findOne({ email });
+      const user = await getUserByEmail(email);
   
-      if (userExists) {
+      if (user) {
         throw new Error("User already exists");
       }
   
