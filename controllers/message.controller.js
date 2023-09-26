@@ -17,6 +17,21 @@ const sendMessage = async (req, res) => {
 
 
 
+const getGroupMessages = async (req, res) => {
+    try {
+
+      const { group_id } = req.params;
+      const groupMessages = await MessageService.getGroupMessages(group_id);  
+        
+        res.status(200).json({ message: 'yayy  successss', data: groupMessages });
+      } catch (error) {
+        console.error('Ughhh !! Error', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+};
+
+
 module.exports = {
-sendMessage
+sendMessage,
+getGroupMessages
   };

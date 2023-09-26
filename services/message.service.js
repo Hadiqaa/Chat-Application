@@ -1,7 +1,7 @@
 const Message = require('../models/').Message;
 
 
-const sendMessage = async (req , res) => {
+const sendMessage = async (senderId, receiverId, text,) => {
     try {
 
         const message = await Message.create ({
@@ -18,6 +18,25 @@ const sendMessage = async (req , res) => {
 };
 
 
+
+const getGroupMessages = async (group_id) => {
+    try {
+
+        const groupMessage = await Message.findAll ({
+            where: { group_id },
+            order: [['createdAt', 'DESC']],
+        });
+      
+    return groupMessage;    
+    } catch {
+
+        console.error('Error getting group messages', error);
+        throw new Error('Error getting group messages');
+    }
+};
+
+
 module.exports = {
-    sendMessage
+    sendMessage,
+    getGroupMessages
  };
