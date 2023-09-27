@@ -34,6 +34,10 @@ const router = express.Router();
 const routes = [
   require("./user.route"),
   require("./auth.route"),
+  require("./attachment.route"),
+  require("./group.route"),
+  require("./message.route"),
+  require("./groupparticipants.route"),
 ];
 
 // Register routes

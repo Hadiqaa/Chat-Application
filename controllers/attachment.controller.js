@@ -1,4 +1,4 @@
-const AttachmentService = require('../services/AttachmentService');
+const AttachmentService = require('../services/attachment.service');
 
 // Function to create a new attachment
 const createAttachment = async (req, res)  => {

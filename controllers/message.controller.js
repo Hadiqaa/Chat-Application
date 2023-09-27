@@ -1,5 +1,4 @@
 const MessageService = require("../services/message.service");
-console.log("checking message controllers", Message); 
 
 const sendMessage = async (req, res) => {
     try {

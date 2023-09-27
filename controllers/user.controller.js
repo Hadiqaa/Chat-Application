@@ -1,5 +1,5 @@
 const User = require("../models").User;
-const generateToken = require("../config/generatetoken")
+const generateToken = require("../helpers/generatetoken")
 const UserService = require ('../services/user.service')
 
 const updateUsername = async (req, res) => {

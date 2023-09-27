@@ -1,6 +1,6 @@
 const User = require('../models/').User;
 const bcrypt = require("bcrypt");
-const generateToken = require("../config/generatetoken");
+const generateToken = require("../helpers/generatetoken");
 console.log("xxx",User);
 
 const getUserByEmail = async (email) => {
