@@ -1,45 +1,17 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Groups extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      Groups.hasMany(models.Message, {
-        foreignKey: 'group_id',
-        as: 'messages',
-      });
+const mongoose = require('mongoose');
 
-      Groups.belongsTo(models.User, {
-        foreignKey: 'creator_id',
-        as: 'user'
-      });
-    }
-  }
-  Groups.init({
-    group_Name: DataTypes.STRING,
+// Define a schema for the Groups collection
+const groupSchema = new mongoose.Schema({
+  group_name: String,
+  creator_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true,
+  },
+  // You can add other fields specific to your needs
+});
 
-  
-    creator_id : {
-      type: DataTypes.INTEGER ,
-      allowNull: false,
-      references :{
-        model:"user",
-        key: "id"
-      }
-    }
-  
-  
-  }, 
+// Create a Mongoose model for the Groups collection
+const Group = mongoose.model('Group', groupSchema);
 
-  {
-    sequelize,
-    modelName: 'Groups',
-  });
-  return Groups;
-};
+module.exports = Group;

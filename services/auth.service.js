@@ -3,58 +3,38 @@ const bcrypt = require("bcrypt");
 const generateToken = require("../helpers/generatetoken");
 console.log("xxx",User);
 
-const getUserByEmail = async (email) => {
-    try {
-        let user = await User.findOne({
-          where: {
-            email: email, // Use the retrieved email in the query
-          },
-          });
-          console.log("just checking", user);
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  };
 
-
-
-
-// Function to handle user login
 const loginUser = async (email, password) => {
   try {
-    // Find the user by email
-    const user = await getUserByEmail(email);
-
-    if (!user) {
-      throw new Error("User does not exist");
-    }
-
-    // Compare the provided password with the stored hashed password
-    const validPassword = await bcrypt.compare(password, user.password);
-
-    if (!validPassword) {
-      throw new Error("Invalid Credentials");
-    }
-
-    // Generate a JWT token
+   
+    const user = await User.findOne({ email });
     const token = generateToken(user.id);
+    if (!user) {
+      throw new Error('User not found');
+    }
 
-    // Return the user and token
-    return { user, token };
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      throw new Error('Incorrect password');
+    }
+
+
+    return {user, token};
+    
   } catch (error) {
+
     throw error;
   }
 };
 
 
 
-const registerUser = async (userName, fullName, email, password) => {
+const registerUser = async (username, email, password) => {
     try {
       // Check if the user already exists with the provided email
-      const user = await getUserByEmail(email);
+      const existingUser = await User.findOne({ email });
   
-      if (user) {
+      if (existingUser) {
         throw new Error("User already exists");
       }
   
@@ -62,19 +42,13 @@ const registerUser = async (userName, fullName, email, password) => {
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Create a new user record
-      const newUser = await User.create({
-        userName,
-        fullName,
-        email,
-        password: hashedPassword, 
-      });
-  
-      
-      const token = generateToken(newUser.id);
-  
-     
-      return { user: newUser, token };
+      const newUser = new User({ username, email, password: hashedPassword, });
+      await newUser.save();
+
+      return newUser;
+
     } catch (error) {
+
       throw error;
     }
   };

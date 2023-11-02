@@ -1,59 +1,25 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Message extends Model {
-    
-  static associate(models) {
-    Message.belongsTo(models.User, {
-      foreignKey: 'sender_id',
-      as: 'user'
-    });
+const mongoose = require('mongoose');
 
-    Message.hasMany(models.Attachments, {
-      foreignKey: 'message_id',
-      as:'attachments'
-    });
+// Define a schema for the Message collection
+const messageSchema = new mongoose.Schema({
+  text: String,
+  sender_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true,
+  },
+  reciever_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  group_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group', // Reference to the Group model
+  },
+  // You can add other fields specific to your needs
+});
 
-    Message.belongsTo(models.Groups, {
-      foreignKey: 'group_id',
-      as: 'groups'
-    });
-    }
-  }
-  Message.init({
-    text: DataTypes.STRING ,
+// Create a Mongoose model for the Message collection
+const Message = mongoose.model('Message', messageSchema);
 
-    sender_id: {
-      type: DataTypes.INTEGER ,
-      allowNull: false,
-      references :{
-        model:"user",
-        key: "id"
-      }
-    },
-
-
-    reciever_id: {
-      type: DataTypes.INTEGER ,
-      allowNull: false
-    },
-
-
-    group_id : {
-      type: DataTypes.INTEGER ,
-      allowNull: false,
-      references :{
-        model:"groups",
-        key: "id"
-      }
-    }
-     
-
-  }, {
-    sequelize,
-    modelName: 'Message',
-  });
-  return Message;
-};
+module.exports = Message;

@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express');
 const GroupController = require('../controllers/group.controller');
+const protect = require('../middleware/authentication');
+const router = express.Router();
 
-router.post('/groups', GroupController.createGroup);
-router.get('/users/:user_id/groups', GroupController.getUsersGroup);
-router.delete('/groups/:group_id', GroupController.deleteGroupwithMessages);
-
+router.post('/creategroup', protect, GroupController.createGroup);
+router.get('/groups/users', protect, GroupController.getUsersOfGroup);
+router.delete('/deletegroups', protect, GroupController.deletegroup);
 
 module.exports = router;

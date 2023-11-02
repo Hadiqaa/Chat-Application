@@ -1,84 +1,67 @@
-const Group = require('../models/').Group;
-const Group_Participant = require('../models/').Group_participants;
+const Group = require('../models/group.model');
+const GroupMember = require('../models/groupmember.model');
+const Message = require('../models/message.model');
+const User = require('../models/user.model');
+const GroupMemberService = require('./groupmember.service')
 
-//to find a group by it's id
-
-// const getGroupById = async (id) => {
-// 	return Group.findByPk(id);
-// }
-
-//to create a new group //fix it
-const createGroup = async (req,res) => {
+const createGroup = async (creator_id, group_name) => {
   try {
-      const group= await Group.create ({
-        group_Name,
-      });
-      return group;
+    console.log('creator_id', creator_id);
+    const group = await Group.create({
+      creator_id,
+      group_name,
+    });
 
-  } catch (error){
-    
-      console.error('Error in Creating a group', error);  
-      throw new Error('Error in creating a group');
+    // Assuming you have a function to add a member to the group
+    await GroupMemberService.addMemberToGroup(group._id, creator_id);
 
+    return group;
+  } catch (error) {
+    console.error('Error in creating a group', error);
+    throw error;
   }
-
 };
 
-// to get all the groups user is part of , including the private chats.
-const getUsersGroups =async (user_id) => {
-
+const getUsersOfGroup = async (group_id) => {
   try {
-      const userGroups = await Group_Participant.findAll({
-        where : {user_id},
-        include : [{model : Group}],
-      });
-      return userGroups.map ((entry)=> entry.Group);
+    const groupMembers = await GroupMember.find({
+      group_id,
+    });
 
-} catch (error) {
+    const userIDs = groupMembers.map((entry) => entry.user_id);
 
-  console.error('Error in getting groups of the user', error);
-  throw new Error('Error in getting groups of the user');
+    const users = await User.find({
+      _id: { $in: userIDs },
+    });
 
-}
-
+    return users;
+  } catch (error) {
+    console.error('Error showing users of a group', error);
+    throw error;
+  }
 };
 
-
-
-const deleteGroupwithMessages =async (group_id) => {
-
+const deleteGroup = async (group_id) => {
   try {
+    await GroupMember.deleteMany({
+      group_id,
+    });
 
-      const deleteGroup = await Group.destroy({
-        where: { id: group_id }
-      });
+    await Message.deleteMany({
+      group_id,
+    });
 
+    const deleteGroup = await Group.findOneAndDelete({
+      _id: group_id,
+    });
 
-      if (!deleteGroup) {
-        throw new Error('Group not found');
-      }
-
-     return { message: 'Group and associated messages deleted successfully' };
-
-} catch (error) {
-
-      console.error('Error in deleting group and group messages', error);
-      throw new Error('Error in deleting group and group messages');
-
-}
-
+    if (!deleteGroup) {
+      throw new Error('Group not found');
+    }
+  } catch (error) {
+    console.error('Error in deleting a group', error);
+    throw error;
+  }
 };
 
-
-
-
-
-
-
-
-
-module.exports = {
-    createGroup,
-    getUsersGroups,
-    deleteGroupwithMessages
-  };
+module.exports = { createGroup, deleteGroup, getUsersOfGroup };

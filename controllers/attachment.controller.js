@@ -1,37 +1,41 @@
 const AttachmentService = require('../services/attachment.service');
+const { Request, Response } = require('express');
 
-// Function to create a new attachment
-const createAttachment = async (req, res)  => {
+const createAttachment = async (req, res) => {
   try {
-    const { fileUrl, fileName, messageId, creatorId} = req.body;
-    const attachment = await AttachmentService.createAttachment(
-       fileUrl,
-       fileName, 
-       messageId, 
-       creatorId
+    const { fileurl, filename, message_id } = req.body;
+    const user = req.user;
+
+    if (!user) {
+      console.error('User object is null or undefined.');
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+
+    const newAttachment = await AttachmentService.createAttachment(
+      fileurl,
+      filename,
+      message_id,
+      user.id
     );
 
-    res.status(201).json(attachment);
+    console.log('creator_id here ', user.id);
+    res.status(200).json({ message: 'Attachment creation successful', data: newAttachment });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating attachment:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
-// Function to get attachments by message ID
-const getAttachmentsByMessageId = async (req, res) =>{
+const getAttachmentsbyID = async (req, res) => {
   try {
-    const { message_id } = req.params;
-    const attachments = await AttachmentService.getAttachmentsByMessageId(
-      message_id
-    );
+    const { message_id } = req.body;
+    const getAttachments = await AttachmentService.getAttachmentsById(message_id);
 
-    res.status(200).json(attachments);
+    res.status(200).json({ message: 'Retrieving Attachment by ID successful', data: getAttachments });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error retrieving attachments:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
-}
-
-module.exports = {
-  createAttachment,
-  getAttachmentsByMessageId,
 };
+
+module.exports = { createAttachment, getAttachmentsbyID };

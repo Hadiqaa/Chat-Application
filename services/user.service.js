@@ -2,30 +2,23 @@ const User = require('../models/').User;
 
 
 
-const getUserById = async (id) => {
-	return User.findByPk(id);
-};
-
-
-const updateName = async (userId, newUsername) => {
-
-    try {
-        // Find the user by their ID
-        const user = await getUserById(userId);
+const updateName = async (user_id, newUsername) => {
+  try {
     
-        if (!user) {
-          throw new Error('User not found'); 
-        }
-    
-        // Update the username
-        user.userName = newUsername;
-        await user.save();
-    
-        return user;
-      } catch (error) {
-        throw error;
-      }
+    const updatedUser = await User.findOneAndUpdate(
+      { id: user_id }, 
+      { username: newUsername }, 
+      { new: true } 
+    );
 
+    if (!updatedUser) {
+      throw new Error('User not found');
+    }
+
+    return updatedUser;
+  } catch (error) {
+    throw error;
+  }
 };
 
 
@@ -34,7 +27,7 @@ const updateName = async (userId, newUsername) => {
 
 const getAllUsers= async() => {
     try {
-      const users = await User.findAll();
+      const users = await User.find();
       return users;
     } catch (error) {
       throw error;

@@ -17,17 +17,16 @@ const login = async (req, res) => {
 
 
 const register = async (req, res) => {
-  const { userName, fullName, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
-    const { user, token } = await AuthService.registerUser(
-      userName,
-      fullName,
+    const { user } = await AuthService.registerUser(
+      username,
       email,
       password
     );
 
-    res.status(201).json({ user, token, status: 201 });
+    res.status(201).json({ user, status: 201 });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

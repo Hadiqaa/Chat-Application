@@ -1,58 +1,22 @@
 const express = require('express')
-const sequelize = require('sequelize')
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
-const {Client} = require('pg')
-bodyParser = require("body-parser"),
-swaggerJsdoc = require("swagger-jsdoc"),
-swaggerUi = require("swagger-ui-express");
+bodyParser = require("body-parser");
 const router = require("./routes/index")
-
-// Swagger configuration
-const options = {
-  definition: {
-    openapi: "3.1.0",
-    info: {
-      title: "LogRocket Express API with Swagger",
-      version: "0.1.0",
-      description:
-        "This is a simple CRUD API application made with Express and documented with Swagger",
-      license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
-      },
-      contact: {
-        name: "LogRocket",
-        url: "https://logrocket.com",
-        email: "info@email.com",
-      },
-    },
-    servers: [
-      {
-        url: "http://localhost:3000",
-      },
-    ],
-  },
-  apis: ["./routes/*.js"],
-};
-
-const specs = swaggerJsdoc(options);
+const mongoose = require('mongoose');
 
 
 // Setting up  port
 const PORT = process.env.PORT || 3000;
 
-const Connection = new Client({
-  host: 'localhost',
-  user: 'hadiqasumbalarshad',
-  password: '11223344',
-  port: '5432',
-  database: 'chatapp', 
-});
 
-Connection.connect()
+mongoose
+  .connect('mongodb://localhost:27017/chatapp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log('Connected to database');
+    console.log('Connected to MongoDB');
     
     // Now, start your Express.js server
     const app = express();
@@ -62,19 +26,14 @@ Connection.connect()
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
 
-
-    app.use(express.json()); //to acccept JSON data 
+    app.use(express.json()); // to accept JSON data 
 
     // Define your routes
     app.use(router);
-    // Serve Swagger UI at /api-docs
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
-
-    // app.use(indexRouter);
 
     // Listening to server connection
     app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));
   })
   .catch((err) => {
-    console.log('Oops, can\'t connect', err);
+    console.log('Oops, can\'t connect to MongoDB', err);
   });

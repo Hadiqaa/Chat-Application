@@ -1,10 +1,12 @@
-const jwt =require ('jsonwebtoken');
-console.log("hello checking!!", process.env.REACT_APP_JWT_SECRET);
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const generateToken = (id) => {
-    return jwt.sign({id}, process.env.REACT_APP_JWT_SECRET,{
-        expiresIn:"60d"
-        
-    })
-}
+  return jwt.sign({ id }, process.env.JWT_SECRET || '');
+};
 
 module.exports = generateToken;
+
+
+

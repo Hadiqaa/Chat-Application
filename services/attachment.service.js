@@ -1,42 +1,29 @@
-const Attachments = require('../models/').Attachments;
+const Attachment = require('../models/attachment.model');
 
-// Function to create a new attachment
-const  createAttachment = async (fileUrl, fileName, messageId, creatorId) => {
+const createAttachment = async (fileurl, filename, message_id, creator_id) => {
   try {
-    const attachment = await Attachments.create({
-      file_Url: fileUrl,
-      file_Name: fileName,
-      message_id: messageId,
-      creator_id: creatorId,
+    const attachment = await Attachment.create({
+      fileurl,
+      filename,
+      message_id,
+      creator_id,
     });
-
     return attachment;
-
   } catch (error) {
-
-    console.error('Error in Creating an attachment', error);  
-    throw new Error('Error in Creating an attachment');
+    console.error('Error in creating an attachment', error);
+    throw error;
   }
 };
 
-// Function to get attachments by message ID
-const  getAttachmentsByMessageId = async (messageId) => {
+const getAttachmentsById = async (message_id) => {
   try {
-    const attachments = await Attachments.findAll({
-      where: { message_id: messageId },
-    });
-
+    const attachments = await Attachment.find({ message_id });
     return attachments;
-
   } catch (error) {
-
-     console.error('Error in getting attachments by a message ID', error);  
-    throw new Error('Error in getting attachments by a message ID');
-
+    console.error('Error retrieving attachments', error);
+    throw error;
   }
 };
 
-module.exports = {
-  createAttachment,
-  getAttachmentsByMessageId,
-};
+module.exports = { createAttachment, getAttachmentsById };
+

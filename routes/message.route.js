@@ -1,9 +1,10 @@
-const express = require("express");
+const express = require('express');
+const protect = require('../middleware/authentication');
+const messageController = require('../controllers/message.controller');
 const router = express.Router();
-const MessageController = require("../controllers/message.controller");
 
-
-router.post("/createmessage", MessageController.sendMessage);
-router.get("/groups/:group_id/messages", MessageController.getGroupMessages);
+router.post('/createmessage', protect, messageController.sendMessage);
+router.get('/groupmessages', protect, messageController.getGroupMessages);
+router.get('/usermessages', protect, messageController.getMessagesOfUsers);
 
 module.exports = router;

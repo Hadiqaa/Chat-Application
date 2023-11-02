@@ -1,8 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const AttachmentController = require('../controllers/attachment.controller');
+const express = require('express');
+const protect = require('../middleware/authentication');
+const attachmentController = require('../controllers/attachment.controller');
 
-router.post('/attachments', AttachmentController.createAttachment);
-router.get('/attachments/message/:message_id', AttachmentController.getAttachmentsByMessageId);
+const router = express.Router();
+
+router.post('/attachments', protect, attachmentController.createAttachment);
+router.get('/attachments/message', protect, attachmentController.getAttachmentsbyID);
 
 module.exports = router;
